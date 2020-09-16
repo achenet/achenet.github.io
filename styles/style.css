@@ -1,0 +1,36 @@
+
+html{
+	background-color: #05001a;
+	font-family: "Open Sans", sans-serif;
+	color: white;
+}
+
+
+h1{ 
+	text-align: center;	
+}
+
+h2{
+	text-align: center;
+}
+
+p{
+	color: white;
+}
+
+.drawing {
+	display: block;
+	text-align:center;
+	border: 3px solid white;
+	padding: 0 20px 20px 20px;
+}
+
+.drawing img {
+	display: block;
+	margin: 0 auto;
+}
+
+.drawing figcaption{
+	font-size: 11px;
+	text-align: center;
+}
