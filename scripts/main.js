@@ -7,6 +7,9 @@ function setUsername() {
 	let name = prompt('Please enter your name');
 	localStorage.setItem('name', name);
 	heading.textContent = 'Welcome ' + name +' !';
+	if(!name) {
+    		setUsername();
+	}
 
 }
 
