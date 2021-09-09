@@ -26,15 +26,15 @@ func allStringsOfLength(length int, charSet []rune) []string {
 	idx := length - 1
 	indexList := make([]int, length)
 
-	for !areEqual(indexList,allMax) {
+	for !areEqual(indexList, allMax) {
 		p := makePassword(indexList, charSet)
 		idx, indexList = next(idx, indexList, maxChar)
 		output = append(output, p)
 	}
 
-    // Add final password
-    output = append(output, makePassword(indexList, charSet))
-   
+	// Add final password
+	output = append(output, makePassword(indexList, charSet))
+
 	return output
 }
 
@@ -59,21 +59,21 @@ func next(idx int, indexList []int, maxChar int) (int, []int) {
 }
 
 func makePassword(indexList []int, charSet []rune) string {
-    p := ""
-    for _, index := range indexList {
-        p += string(charSet[index])
-    }    
-    return p
+	p := ""
+	for _, index := range indexList {
+		p += string(charSet[index])
+	}
+	return p
 }
 
 func areEqual(first, second []int) bool {
-    if len(first) != len(second) {
-        return false
-    }
-    for i, r := range first {
-        if r != second[i] {
-            return false
-        }
-    } 
-    return true
+	if len(first) != len(second) {
+		return false
+	}
+	for i, r := range first {
+		if r != second[i] {
+			return false
+		}
+	}
+	return true
 }
