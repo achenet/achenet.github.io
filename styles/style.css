@@ -1,6 +1,6 @@
 
 html{
-	background-color: #05001a;
+	background-color: black;
 	font-family: "Open Sans", sans-serif;
 	color: white;
 }
@@ -10,8 +10,8 @@ body {
 }
 
 
-h1{ 
-	text-align: center;	
+h1{
+	text-align: center;
     font-weight: bold;
 }
 
@@ -32,6 +32,18 @@ h5 {
 p{
 	color: white;
     text-indent: 4em;
+}
+
+[class="img-responsive"] {
+    width: 95%;
+    max-width: 330px;
+    max-height: 330px;
+}
+
+[class="img"] {
+    width: 95%;
+    max-width: 330px;
+    max-height: 330px;
 }
 
 .drawing {
@@ -60,7 +72,6 @@ a {
     color: #ffffff;
     background-color: #000000;
     text-align: center;
-    border: 4px dotted darkgrey;
     margin: 1em auto 1em;
 }
 [class*="container-bis"] {
