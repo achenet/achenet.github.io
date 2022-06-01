@@ -82,3 +82,20 @@ a {
     border: 0;
 	font-family: "Open Sans", sans-serif;
 }
+[class*="container-poem"] {
+    padding: 1rem;
+    color: #ffffff;
+    background-color: #000000;
+    text-align: center;
+    margin: 1em auto 1em;
+    max-width: 400px;
+}
+
+[class*="container-ter"] {
+    padding: 1rem;
+    color: #ffffff;
+    background-color: #000000;
+    text-align: left;
+    margin: 1em auto 1em;
+    max-width: 550px;
+}
