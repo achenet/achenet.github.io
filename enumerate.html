@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Simple enumaration</title>
+    <link href="styles/style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="container-ter">
+<h2 id="simple-enumeration">Simple enumeration</h2>
+<p>There are times in life when it is useful to enumerate all possible ordered configurations under a certain length for a given set of symbols.</p>
+<p>A set of symbols is sometime called an <em>alphabet</em>, and a finite, ordered combination of elements of the alphabet is called a <em>word</em>.</p>
+<p>Let’s write a simple program that will enumerate all possible words up to a given length on a given alphabet. We’ll be using Python, but the basic logic should be easy to adapt to most other high level programming languages.</p>
+<p>The basic idea is to create a small procedure that generates all words for a given length, then call it for each length up to a certain maximum length.</p>
+<p>Our most basic function with take the form</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" title="1"><span class="bu">enumerate</span>(alphabet, length)</a></code></pre></div>
+<p>with <code>alphabet</code> being a list of characters and <code>length</code> being a positive integer. One could argue that a set would have been the Python data structure most suited to represent an alphabet, since it has no doubles. In practice, however, we do make ample use of the fact that a Python list can be indexed. It is possible to convert a set to a list with the command</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" title="1">l <span class="op">=</span> [ a <span class="cf">for</span> a <span class="kw">in</span> s ]</a></code></pre></div>
+<p>with <code>s</code> being a set.</p>
+<p>The body of this function will be very simple: we will simply call another function that enumerates all tuples of a given length for all lengths up to the maximum desired length.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">def</span> <span class="bu">enumerate</span>(alphabet, length):</a>
+<a class="sourceLine" id="cb3-2" title="2">    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(length <span class="op">+</span> <span class="dv">1</span>):</a>
+<a class="sourceLine" id="cb3-3" title="3">        enumerate_of_length(alphabet, i)</a></code></pre></div>
+<p>The next step will be to define the <code>enumerate_of_length</code> function. This function will use the indexability of lists. We start by defining an ‘index vector’, which is initialized to the zero vector of length <code>n</code>. We then print the word associated with this vector, and increment the vector.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">def</span> enumerate_of_length(alphabet, n):</a>
+<a class="sourceLine" id="cb4-2" title="2">    v <span class="op">=</span> [<span class="dv">0</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n)]</a>
+<a class="sourceLine" id="cb4-3" title="3">    l <span class="op">=</span> <span class="bu">len</span>(alphabet) <span class="op">-</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="cf">while</span> v <span class="op">!=</span> [l <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n)]:</a>
+<a class="sourceLine" id="cb4-5" title="5">        <span class="bu">print</span>([alphabet[i] <span class="cf">for</span> i <span class="kw">in</span> v])</a>
+<a class="sourceLine" id="cb4-6" title="6">        inc(v, l)</a>
+<a class="sourceLine" id="cb4-7" title="7">    <span class="bu">print</span>([alphabet[l] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n)])</a></code></pre></div>
+<p>The process of incrementing the vector is described by the following code:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">def</span> inc(v, l):</a>
+<a class="sourceLine" id="cb5-2" title="2">    i <span class="op">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    inc_idx(v, i, l)</a>
+<a class="sourceLine" id="cb5-4" title="4"></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="kw">def</span> inc_idx(v, i, l):</a>
+<a class="sourceLine" id="cb5-6" title="6">    <span class="cf">if</span> v[i] <span class="op">==</span> l:</a>
+<a class="sourceLine" id="cb5-7" title="7">        v[i] <span class="op">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb5-8" title="8">        inc_idx(v, i <span class="op">+</span> <span class="dv">1</span>, l)</a>
+<a class="sourceLine" id="cb5-9" title="9">    <span class="cf">else</span>:</a>
+<a class="sourceLine" id="cb5-10" title="10">        v[i] <span class="op">+=</span> <span class="dv">1</span></a></code></pre></div>
+<p>We start at the leftmost character. If it is equal to the “last” character in the alphabet, we move to the second to leftmost character. If that one is also at ther “maximum” value for characters in the alphabet, we go right one more character, and repeat the process.</p>
+<p>In other words, we increment the characters by cycling through their order in the list, starting from the rightmost character.</p>
+<p>The full source code is</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">def</span> <span class="bu">enumerate</span>(alphabet, length):</a>
+<a class="sourceLine" id="cb6-2" title="2">    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(length <span class="op">+</span> <span class="dv">1</span>):</a>
+<a class="sourceLine" id="cb6-3" title="3">        enumerate_of_length(alphabet, i)</a>
+<a class="sourceLine" id="cb6-4" title="4"></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="kw">def</span> enumerate_of_length(alphabet, n):</a>
+<a class="sourceLine" id="cb6-6" title="6">    v <span class="op">=</span> [<span class="dv">0</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n)]</a>
+<a class="sourceLine" id="cb6-7" title="7">    l <span class="op">=</span> <span class="bu">len</span>(alphabet) <span class="op">-</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb6-8" title="8">    <span class="cf">while</span> v <span class="op">!=</span> [l <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n)]:</a>
+<a class="sourceLine" id="cb6-9" title="9">        <span class="bu">print</span>([alphabet[i] <span class="cf">for</span> i <span class="kw">in</span> v])</a>
+<a class="sourceLine" id="cb6-10" title="10">        inc(v, l)</a>
+<a class="sourceLine" id="cb6-11" title="11">    <span class="bu">print</span>([alphabet[l] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n)])</a>
+<a class="sourceLine" id="cb6-12" title="12"></a>
+<a class="sourceLine" id="cb6-13" title="13"><span class="kw">def</span> inc(v, l):</a>
+<a class="sourceLine" id="cb6-14" title="14">    i <span class="op">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb6-15" title="15">    inc_idx(v, i, l)</a>
+<a class="sourceLine" id="cb6-16" title="16"></a>
+<a class="sourceLine" id="cb6-17" title="17"><span class="kw">def</span> inc_idx(v, i, l):</a>
+<a class="sourceLine" id="cb6-18" title="18">    <span class="cf">if</span> v[i] <span class="op">==</span> l:</a>
+<a class="sourceLine" id="cb6-19" title="19">        v[i] <span class="op">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb6-20" title="20">        inc_idx(v, i <span class="op">+</span> <span class="dv">1</span>, l)</a>
+<a class="sourceLine" id="cb6-21" title="21">    <span class="cf">else</span>:</a>
+<a class="sourceLine" id="cb6-22" title="22">        v[i] <span class="op">+=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb6-23" title="23"></a>
+<a class="sourceLine" id="cb6-24" title="24"></a>
+<a class="sourceLine" id="cb6-25" title="25"></a>
+<a class="sourceLine" id="cb6-26" title="26"><span class="bu">enumerate</span>([<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>,<span class="st">&#39;c&#39;</span>], <span class="dv">3</span>)</a></code></pre></div>
+<p>This concludes the tutorial on how to enumerate all words of less than a certain length on a given alphabet in Python. A practical application of this is brute forcing passwords.</p>
+<a href="index.html">🏡</a>
+
+    </div>
+  </body>

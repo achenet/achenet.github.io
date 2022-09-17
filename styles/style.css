@@ -1,8 +1,8 @@
 
 html{
-	background-color: black;
-	font-family: "Open Sans", sans-serif;
-	color: white;
+  background-color: black;
+  font-family: "Open Sans", sans-serif;
+  color: white;
 }
 
 body {
@@ -11,12 +11,12 @@ body {
 
 
 h1{
-	text-align: center;
-    font-weight: bold;
+  text-align: center;
+  font-weight: bold;
 }
 
 h2{
-	text-align: center;
+  text-align: center;
 }
 
 h5 {
@@ -30,7 +30,7 @@ h5 {
 }
 
 p{
-	color: white;
+  color: white;
     text-indent: 4em;
 }
 
